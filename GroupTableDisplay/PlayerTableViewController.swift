@@ -73,6 +73,27 @@ class PlayerTableViewController: UITableViewController {
         }
         return "ㅎ"
     }
+    
+    //검색과 관련된 프로퍼티
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredPlayers:Array<String> = []
+    
+    //검색 입력 란이 비어있는지 확인하는 함수
+    func searchBarIsEmpty() -> Bool{
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    //검색 입력란에 내용을 입력하면 호출되는 메소드
+    //테이블 뷰를 재출력
+    func filterContentForSearchText(_ searchText:String, scope:String = "All"){
+        //데이터를 조회해서 검색 입력란에 입력한 데이터를 포함하고 있으면 모아서 filteredPlayers 에 대입
+        filteredPlayers = data.filter({(players:String) -> Bool in return players.lowercased().contains(searchText.lowercased())})
+        tableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool{
+        return searchController.isActive && !searchBarIsEmpty()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +163,12 @@ class PlayerTableViewController: UITableViewController {
             
             i = i + 1
         }
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "검색어를 입력하세요!"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -155,25 +182,41 @@ class PlayerTableViewController: UITableViewController {
     //섹션의 개수를 설정하는 메소드
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        if isFiltering(){
+            return 1
+        }
         return sectionData.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if isFiltering(){
+            return "검색 결과"
+        }
+        
         //세션번호를 딕셔너러리를 찾아옵니다.
         let dic = sectionData[section]
         //딕셔너리에서 section_name 의 값을 가져옵니다.
         //Array는 직접 변환이 안되지만 String은 직접 변환 가능
-        let str = (dic["section_name"] as! NSString) as String
+        //let str = (dic["section_name"] as! NSString) as String
+        let str = dic["section_name"] as! String
         
         return str
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if isFiltering(){
+            return filteredPlayers.count
+        }
+        
         // #warning Incomplete implementation, return the number of rows
         //섹션 번호에 해당하는 데이터를 찾아옵니다.
         let dic = sectionData[section]
         //데이터를 찾아와 개수를 가져옵니다.
         let players = (dic["data"] as! NSArray) as Array
+        
+        
         return players.count
     }
 
@@ -188,6 +231,12 @@ class PlayerTableViewController: UITableViewController {
 
         // Configure the cell...
         
+        //검색바가 활성화 되었을 때 출력
+        if isFiltering(){
+            cell?.textLabel?.text = filteredPlayers[indexPath.row]
+            return cell!
+        }
+        
         //섹션 번호를 이용해서 딕셔너리를 찾고 다시 딕셔너리에서 배열을 찾고 배열에서 행번호를 가지고 데이터를 찾아옵니다.
         
         let dic = sectionData[indexPath.section]
@@ -200,6 +249,23 @@ class PlayerTableViewController: UITableViewController {
         cell?.textLabel?.text = player
 
         return cell!
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return indexes
+    }
+    
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        //누른 인덱스의 섹션 인덱스를 찾아오기
+        for i in 0 ..<  sectionData.count{
+            let dic = sectionData[i]
+            let sectionName = dic["section_name"] as! String
+            if sectionName == title{
+                return i
+            }
+        }
+        //일치하는 데이터가 없다면 특정 영역으로 이동하지 않
+        return -1
     }
     
 
@@ -251,4 +317,13 @@ class PlayerTableViewController: UITableViewController {
     }
     */
 
+}
+
+
+//검색 바의 내용이 변경되 때 호출될 메소드를 소유한 protocol
+extension PlayerTableViewController : UISearchResultsUpdating{
+    //사용자 정의 메소드에 입력한 문자열 전달
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }
