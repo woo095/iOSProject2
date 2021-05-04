@@ -29,6 +29,7 @@
 		EBCC0D67A6642DE945A5646D /* Pods_scrollviewuse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1316D8016E4352CF8ECD28CA /* Pods_scrollviewuse.framework */; };
 		EC228B43440FD35978B534BD /* Pods_notification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD2D9667330155D712FBCFC /* Pods_notification.framework */; };
 		F274C1AF91D248C6D3155F9B /* Pods_SwitchViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1429D7359C6F872419384950 /* Pods_SwitchViewController.framework */; };
+		F304EFF42640FE76004A380A /* LogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F304EFF32640FE76004A380A /* LogVC.swift */; };
 		F30B4DD1263666CE00601F1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B4DD0263666CE00601F1F /* AppDelegate.swift */; };
 		F30B4DD3263666CE00601F1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B4DD2263666CE00601F1F /* SceneDelegate.swift */; };
 		F30B4DD8263666CE00601F1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F30B4DD6263666CE00601F1F /* Main.storyboard */; };
@@ -276,6 +277,7 @@
 		DD5699294D1AB6079443DD7E /* Pods-SubDataWebViewDisplay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SubDataWebViewDisplay.release.xcconfig"; path = "Target Support Files/Pods-SubDataWebViewDisplay/Pods-SubDataWebViewDisplay.release.xcconfig"; sourceTree = "<group>"; };
 		EA75DE1EAE015DB91AD59757 /* Pods-ImageViewAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageViewAnimation.release.xcconfig"; path = "Target Support Files/Pods-ImageViewAnimation/Pods-ImageViewAnimation.release.xcconfig"; sourceTree = "<group>"; };
 		EEE3217E50A28D1522036385 /* Pods-pickerview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pickerview.debug.xcconfig"; path = "Target Support Files/Pods-pickerview/Pods-pickerview.debug.xcconfig"; sourceTree = "<group>"; };
+		F304EFF32640FE76004A380A /* LogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogVC.swift; sourceTree = "<group>"; };
 		F30B4DCE263666CE00601F1F /* EditTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EditTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30B4DD0263666CE00601F1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F30B4DD2263666CE00601F1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1178,6 +1180,7 @@
 				F3D32787263FD2790052A2D2 /* CoreDataToDo.xcdatamodeld */,
 				F3D32793263FD9B00052A2D2 /* ToDoListVC.swift */,
 				F3D32795263FE8730052A2D2 /* ToDoInputVC.swift */,
+				F304EFF32640FE76004A380A /* LogVC.swift */,
 			);
 			path = CoreDataToDo;
 			sourceTree = "<group>";
@@ -2840,6 +2843,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3D3277F263FD2790052A2D2 /* AppDelegate.swift in Sources */,
+				F304EFF42640FE76004A380A /* LogVC.swift in Sources */,
 				F3D32796263FE8730052A2D2 /* ToDoInputVC.swift in Sources */,
 				F3D32789263FD2790052A2D2 /* CoreDataToDo.xcdatamodeld in Sources */,
 				F3D32794263FD9B00052A2D2 /* ToDoListVC.swift in Sources */,
