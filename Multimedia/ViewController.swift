@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         present(picker, animated: true)
     }
     @IBAction func upload(_ sender: Any) {
-        //업로드 할 URL: http://192.168.1.143/item/insert
+        //업로드 할 URL: http://192.168.1.149/item/insert
         //전송 방식: post
         //파일 업로드 여부: 있음
         //파라미터: itemname, description, price, pictureurl
