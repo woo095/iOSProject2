@@ -124,7 +124,13 @@
                         <viewLayoutGuide key="safeArea" id="yVb-Rz-Phf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="z2b-kz-RnW"/>
+                    <navigationItem key="navigationItem" id="z2b-kz-RnW">
+                        <barButtonItem key="rightBarButtonItem" title="플라이오버" id="zSg-jK-vmZ">
+                            <connections>
+                                <action selector="animateCamera:" destination="NDZ-xG-T06" id="igD-ld-OPd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="routeMap" destination="wv3-T1-l6u" id="Hi9-9f-VYz"/>
                     </connections>
