@@ -78,6 +78,75 @@ class ViewController: UIViewController {
         
         //결과는 어떤 형식: json
         //결과 해석: {result:true 또는 false}
+        
+        //3개의 문자열을 입력받는 대화상자
+        let addAlert = UIAlertController(title: "데이터 추가", message: "추가할 데이터를 입력하세요!!", preferredStyle: .alert)
+        
+        //텍스트 필드 추가
+        addAlert.addTextField(){
+            (tf) -> Void in
+            //텍스트 필드의 옵션을 설정
+            tf.placeholder = "이름을 입력하세요!!"
+        }
+        
+        addAlert.addTextField(){
+            (tf) -> Void in
+            //텍스트 필드의 옵션을 설정
+            tf.placeholder = "가격을 입력하세요!!"
+            //키패드 설정
+            tf.keyboardType = .numberPad
+        }
+        
+        addAlert.addTextField(){
+            (tf) -> Void in
+            //텍스트 필드의 옵션을 설정
+            tf.placeholder = "설명을 입력하세요!!"
+        }
+        
+        //단순하게 대화상자를 닫는 버튼
+        addAlert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        //버튼을 눌렀을 때 작업을 수행
+        addAlert.addAction(UIAlertAction(title: "추가", style: .default){
+            (action) -> Void in
+            
+            //입력 받은 내용 가져오기
+            let itemname = addAlert.textFields?[0].text
+            let price = addAlert.textFields?[1].text
+            let description = addAlert.textFields?[2].text
+            
+            let parameters = ["itemname":itemname!, "price":price!, "description":description!]
+            
+            AF.upload(multipartFormData: {multipartFormData -> Void in
+                //파라미터를 전송
+                for (key, value) in parameters{
+                    multipartFormData.append((value as String).data(using: .utf8)!, withName: key)
+                }
+                let image = self.imageView.image
+                if image != nil{
+                    multipartFormData.append(image!.pngData()!, withName: "pictureurl", fileName: "file.png", mimeType: "image/png")
+                }
+            }, to: "http://192.168.1.149/item/insert", method: .post, headers: nil).responseJSON{
+                response in
+                //결과가 전송된 경우 수행할 내용
+                if let jsonObject = response.value as? [String:Any]{
+                    let result = jsonObject["result"] as? Bool
+                    var msg = ""
+                    if result!{
+                        msg = "삽입 성공"
+                    }else {
+                        msg = "삽입 실패"
+                    }
+                    
+                    let msgAlert = UIAlertController(title: "데이터", message: msg, preferredStyle: .alert)
+                    
+                    msgAlert.addAction(UIAlertAction(title: "확인", style: .default))
+                    
+                    self.present(msgAlert, animated: true)
+                }
+            }
+        })
+        
+        self.present(addAlert, animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
